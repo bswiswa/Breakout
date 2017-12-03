@@ -2,20 +2,27 @@ package com.breakout;
 
 import com.almasb.fxgl.GameApplication;
 import com.almasb.fxgl.GameSettings;
+import com.almasb.fxgl.asset.Assets;
 
 import javafx.scene.layout.Pane;
 
 public class BreakoutApp extends GameApplication{
-
+	private Assets assets;
 	@Override
 	protected void initSettings(GameSettings settings) {
-		// TODO Auto-generated method stub
+		settings.setTitle("Breakout");
+		settings.setVersion("dev");
+		settings.setWidth(640);
+		settings.setHeight(960);
+		settings.setIntroEnabled(false);
+		
 		
 	}
 
 	@Override
 	protected void initAssets() throws Exception {
-		// TODO Auto-generated method stub
+		assets = assetManager.cache();
+		assets.logCached();
 		
 	}
 
