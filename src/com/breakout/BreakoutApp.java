@@ -9,6 +9,8 @@ import com.almasb.fxgl.entity.EntityType;
 import com.almasb.fxgl.physics.PhysicsEntity;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class BreakoutApp extends GameApplication{
 	private enum Type implements EntityType{
@@ -65,7 +67,7 @@ public class BreakoutApp extends GameApplication{
 	private void initBricks() {
 		for(int i = 0; i < 48; i++) {
 			PhysicsEntity brick = new PhysicsEntity(Type.BRICK);
-			brick.setPosition((i%16)*40, (i/16)*40);
+			brick.setPosition((i%16)*40, 100 + (i/16)*40);
 			/* there are 16 bricks that fit in a row so each row
 			 * we specify the position by i%16 since it will keep repeating between 1 -16
 			 * whereas for height, we want the height to change after 16 so instead of i%16 we do i/16
@@ -79,7 +81,11 @@ public class BreakoutApp extends GameApplication{
 
 	@Override
 	protected void initUI(Pane uiRoot) {
-		// TODO Auto-generated method stub
+		Text scoreText = new Text();
+		scoreText.setTranslateY(50);
+		scoreText.setFont(Font.font(18));
+		scoreText.setText("SCORE:");
+		uiRoot.getChildren().add(scoreText);
 		
 	}
 
