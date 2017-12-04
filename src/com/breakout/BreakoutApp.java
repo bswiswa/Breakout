@@ -1,12 +1,15 @@
 package com.breakout;
 
+import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.FixtureDef;
 
 import com.almasb.fxgl.GameApplication;
 import com.almasb.fxgl.GameSettings;
 import com.almasb.fxgl.asset.Assets;
 import com.almasb.fxgl.entity.EntityType;
 import com.almasb.fxgl.physics.PhysicsEntity;
+import com.almasb.fxgl.physics.PhysicsManager;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -69,7 +72,7 @@ public class BreakoutApp extends GameApplication{
 		right.setGraphics(new Rectangle(10, getHeight()));
 		
 		
-		addEntities(top, left, bottom, right);
+		addEntities(top, bottom, left, right);
 	}
 
 	private void initBat() {
@@ -78,6 +81,7 @@ public class BreakoutApp extends GameApplication{
 		bat.setGraphics(assets.getTexture("bat.png"));
 		bat.setBodyType(BodyType.KINEMATIC);
 		addEntities(bat);
+		
 	}
 	
 	private void initBall() {
@@ -85,6 +89,12 @@ public class BreakoutApp extends GameApplication{
 		ball.setPosition(getWidth()/2 - 30/2, getHeight()/2 -30/2);
 		ball.setGraphics(assets.getTexture("ball.png"));
 		ball.setBodyType(BodyType.DYNAMIC);
+		
+		FixtureDef fd = new FixtureDef();
+		fd.restitution = 0.8f;
+		fd.shape = new CircleShape();
+		fd.shape.setRadius(PhysicsManager.toMeters(15));
+		ball.setFixtureDef(fd);
 		addEntities(ball);
 		
 		ball.setLinearVelocity(5,-5);
