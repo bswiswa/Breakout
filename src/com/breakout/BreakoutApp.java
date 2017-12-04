@@ -11,6 +11,7 @@ import com.almasb.fxgl.entity.EntityType;
 import com.almasb.fxgl.physics.PhysicsEntity;
 import com.almasb.fxgl.physics.PhysicsManager;
 
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -149,7 +150,12 @@ public class BreakoutApp extends GameApplication{
 	protected void onUpdate() {
 		//so bat doesn't move on its own but only when key is pressed
 		bat.setLinearVelocity(0, 0);
-		
+		Point2D v = ball.getLinearVelocity();
+		if(Math.abs(v.getY()) < 5) {
+			double x = v.getX();
+			double signY = Math.signum(v.getY());
+			ball.setLinearVelocity(x, signY*5);
+		}
 	}
 	
 	public static void main(String[] args) {
