@@ -8,6 +8,7 @@ import com.almasb.fxgl.asset.Assets;
 import com.almasb.fxgl.entity.EntityType;
 import com.almasb.fxgl.physics.PhysicsEntity;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -91,13 +92,28 @@ public class BreakoutApp extends GameApplication{
 
 	@Override
 	protected void initInput() {
-		// TODO Auto-generated method stub
+		// move left options - left key or A
+		inputManager.addKeyPressBinding(KeyCode.LEFT, ()->{
+			bat.setLinearVelocity(-5, 0);
+		});
+		inputManager.addKeyPressBinding(KeyCode.A, ()->{
+			bat.setLinearVelocity(-5, 0);
+		});
+		// move right options - right key or D
+		inputManager.addKeyPressBinding(KeyCode.RIGHT, ()->{
+			bat.setLinearVelocity(5, 0);
+		});
+		inputManager.addKeyPressBinding(KeyCode.D, ()->{
+			bat.setLinearVelocity(5, 0);
+		});
+		
 		
 	}
 
 	@Override
 	protected void onUpdate() {
-		// TODO Auto-generated method stub
+		//so bat doesn't move on its own but only when key is pressed
+		bat.setLinearVelocity(0, 0);
 		
 	}
 	
