@@ -10,12 +10,13 @@ import com.almasb.fxgl.physics.PhysicsEntity;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class BreakoutApp extends GameApplication{
 	private enum Type implements EntityType{
-		BAT, BALL, BRICK;
+		BAT, BALL, BRICK, SCREEN;
 	}
 	
 	private PhysicsEntity bat, ball;
@@ -43,10 +44,32 @@ public class BreakoutApp extends GameApplication{
 	protected void initGame() {
 		//remove gravity default is (0, 10)
 		physicsManager.setGravity(0,0);
+		initScreenBounds();
 		initBat();
 		initBall();
 		initBricks();
 		
+	}
+	
+	private void initScreenBounds() {
+		PhysicsEntity top = new PhysicsEntity(Type.SCREEN);
+		top.setPosition(0, -10);
+		top.setGraphics(new Rectangle(getWidth(), 10));
+		
+		PhysicsEntity bottom = new PhysicsEntity(Type.SCREEN);
+		bottom.setPosition(0, getHeight());
+		bottom.setGraphics(new Rectangle(getWidth(), 10));
+		
+		PhysicsEntity left = new PhysicsEntity(Type.SCREEN);
+		left.setPosition(-10, 0);
+		left.setGraphics(new Rectangle(10, getHeight()));
+		
+		PhysicsEntity right = new PhysicsEntity(Type.SCREEN);
+		right.setPosition(getWidth(), 0);
+		right.setGraphics(new Rectangle(10, getHeight()));
+		
+		
+		addEntities(top, left, bottom, right);
 	}
 
 	private void initBat() {
@@ -63,6 +86,8 @@ public class BreakoutApp extends GameApplication{
 		ball.setGraphics(assets.getTexture("ball.png"));
 		ball.setBodyType(BodyType.DYNAMIC);
 		addEntities(ball);
+		
+		ball.setLinearVelocity(5,-5);
 	}
 	
 	private void initBricks() {
